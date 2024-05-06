@@ -7,10 +7,16 @@
         <p>
             {{ form.song.label }}<br>
             {{ form.song(size=32) }}
+            {% for error in form.song.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
         </p>
         <p>
             {{ form.artist.label }}<br>
             {{ form.artist(size=32) }}
+            {% for error in form.artist.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
         </p>
         <p>{{ form.submit() }}</p>
     </form>

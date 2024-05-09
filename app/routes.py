@@ -1,4 +1,5 @@
 from app import app
+import requests
 from flask import render_template, flash
 from app.forms import SongForm
 import os
@@ -13,7 +14,10 @@ client_secret = os.getenv("CLIENT_SECRET")
 @app.route("/")
 @app.route("/index")
 def index():
+    access_token()
+    print("exited function")
     user = {"username": "Brett"}
+
     return render_template("index.html", title="Home", user=user)
 
 
@@ -28,3 +32,15 @@ def song_search():
         print("invalid song")
 
     return render_template("song_form.html", title="Song Search", form=form)
+
+
+# @app.route("/spotify_token")
+def access_token():
+    print("in access token")
+    payload = {
+        "grant_type": "client_credentials",
+        "client_id": client_id,
+        "client_secret": client_secret,
+    }
+    res = requests.post("https://accounts.spotify.com/api/token", data=payload)
+    print(res.text)

@@ -34,7 +34,7 @@ def song_search():
     return render_template("song_form.html", title="Song Search", form=form)
 
 
-# @app.route("/spotify_token")
+@app.route("/spotify_token")
 def access_token():
     print("in access token")
     payload = {
@@ -44,3 +44,4 @@ def access_token():
     }
     res = requests.post("https://accounts.spotify.com/api/token", data=payload)
     print(res.text)
+    return res.text

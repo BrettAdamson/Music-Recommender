@@ -5,6 +5,7 @@ from app.forms import SongForm
 import os
 from dotenv import load_dotenv
 
+
 load_dotenv()
 
 client_id = os.getenv("CLIENT_ID")
@@ -34,7 +35,7 @@ def song_search():
     return render_template("song_form.html", title="Song Search", form=form)
 
 
-@app.route("/spotify_token")
+@app.route("/spotify_token", methods=["GET"])
 def access_token():
     print("in access token")
     payload = {

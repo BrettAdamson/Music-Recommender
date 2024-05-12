@@ -4,12 +4,13 @@ from config import Config
 
 def create_app(config_class=Config):
     from .api.routes import api
-    from .website.routes import website
 
     app = Flask(__name__)
     app.config.from_object(Config)
     app.register_blueprint(api)
-    app.register_blueprint(website)
-    # from app import routes
+
+    from app.website import bp as website_bp
+
+    app.register_blueprint(website_bp)
 
     return app

@@ -2,21 +2,21 @@ from flask import Blueprint
 import os
 from dotenv import load_dotenv
 import requests
+from app.api import bp
 
 
 load_dotenv()
 
 client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
-api = Blueprint("api", __name__, url_prefix="/api")
 
 
-@api.route("/getdata")
+# @bp.route("/getdata")
 def getdata():
     return {"key": "value"}
 
 
-@api.route("/spotify_token", methods=["GET"])
+@bp.route("/spotify_token", methods=["GET"])
 def access_token():
     print("in access token")
     payload = {

@@ -1,6 +1,7 @@
 from flask import render_template, flash, Blueprint
 from app.forms import SongForm
 from app.website import bp
+from app.api.routes import getdata
 
 
 @bp.route("/test")
@@ -12,7 +13,7 @@ def web_index():
 def index():
     print("exited function")
     user = {"username": "Brett"}
-
+    print(getdata())
     return render_template("index.html", title="Home", user=user)
 
 

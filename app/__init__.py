@@ -7,9 +7,9 @@ def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    from app.website import bp as website_bp
+    from app.core import bp as core_bp
 
-    app.register_blueprint(website_bp)
+    app.register_blueprint(core_bp)
 
     from app.api import bp as api_bp
 

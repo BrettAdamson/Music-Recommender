@@ -1,12 +1,12 @@
 from flask import render_template, flash, Blueprint
 from app.forms import SongForm
-from app.website import bp
+from app.core import bp
 from app.api.routes import getdata
 
 
 @bp.route("/test")
 def web_index():
-    return "<h1>Welcome to website blueprint</h1>"
+    return "<h1>Welcome to core blueprint</h1>"
 
 
 @bp.route("/")
@@ -15,10 +15,6 @@ def index():
     user = {"username": "Brett"}
     print(getdata())
     return render_template("index.html", title="Home", user=user)
-
-
-# @website.route("/")
-# # @website.route("/index")
 
 
 @bp.route("/search", methods=["GET", "POST"])

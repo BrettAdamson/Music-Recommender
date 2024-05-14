@@ -1,19 +1,21 @@
 from flask import render_template, flash, Blueprint
 from app.forms import SongForm
 from app.core import bp
-from app.api.routes import getdata
+from app.api import spotify_handler
+
+# from app.api.routes import getdata
 
 
 @bp.route("/test")
 def web_index():
-    return "<h1>Welcome to core blueprint</h1>"
+    auth = spotify_handler.access_token()
+    return auth
 
 
 @bp.route("/")
 def index():
     print("exited function")
     user = {"username": "Brett"}
-    print(getdata())
     return render_template("index.html", title="Home", user=user)
 
 

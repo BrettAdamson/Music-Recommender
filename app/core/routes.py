@@ -2,14 +2,15 @@ from flask import render_template, flash, Blueprint
 from app.forms import SongForm
 from app.core import bp
 from app.api import spotify_handler
+from app.auth import auth
 
 # from app.api.routes import getdata
 
 
 @bp.route("/test")
 def web_index():
-    auth = spotify_handler.access_token()
-    return auth
+    authToken = auth.access_token()
+    return authToken
 
 
 @bp.route("/")

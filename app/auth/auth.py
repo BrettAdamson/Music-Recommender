@@ -36,7 +36,7 @@ def spotify_redirect():
         TOKEN_URL,
         auth=HTTPBasicAuth(CLIENT_ID, CLIENT_SECRET),
         data={
-            "grant_type": "client_credentials",
+            "grant_type": "authorization_code",
             "code": code,
             "redirect_uri": REDIRECT_URI,
         },

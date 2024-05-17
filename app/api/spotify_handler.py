@@ -1,10 +1,21 @@
 import requests
 from app.api import bp
+from app.auth import auth
+from flask import session
 
 
 @bp.route("/getdata")
 def getdata():
-    return {"key": "value"}
+    auth.access_token()
+
+    # if session["client_credentials"]:
+    #     print("CREDENTIALS: \n")
+    #     print(session["client_code"])
+    #     print("\n")
+    # elif session["auth_code"]:
+    #     print("CREDENTIALS: \n")
+    #     print(session["auth_code"])
+    #     print("\n")
 
 
 # @bp.route("/spotify_token", methods=["GET"])

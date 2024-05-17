@@ -4,7 +4,7 @@ import requests
 from app.api import bp
 from requests_oauthlib import OAuth2Session
 from requests.auth import HTTPBasicAuth
-from flask import redirect, request
+from flask import redirect, request, session
 import json
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
@@ -41,10 +41,12 @@ def spotify_redirect():
             "redirect_uri": REDIRECT_URI,
         },
     )
+    access_token = response.json()["access_token"]
+    session["auth_code"] = access_token
     return json.dumps(response.json())
 
 
-@bp.route("/spotify_token", methods=["GET"])
+@bp.route("/client_credentials", methods=["GET"])
 def access_token():
     print("in access token")
     payload = {
@@ -52,6 +54,13 @@ def access_token():
         "client_id": CLIENT_ID,
         "client_secret": CLIENT_SECRET,
     }
-    res = requests.post("https://accounts.spotify.com/api/token", data=payload)
-    print(res.text)
-    return res.text
+    response = requests.post("https://accounts.spotify.com/api/token", data=payload)
+    print(response.text)
+    access_token = response.json()["access_token"]
+    session["client_code"] = access_token
+    if session["client_code"]:
+        print("CREDENTIALS: \n")
+        print(session["client_code"])
+        print("\n")
+
+    return json.dumps(response.json())

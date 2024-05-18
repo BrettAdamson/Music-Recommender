@@ -70,11 +70,17 @@ def access_token():
 def token_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        x = 10
-        if x > 5:
-            print("Token exists")
+        token = None
+        if "Authorization" in request.headers:
+            print("Authorization exists")
         else:
-            print("Token does not exist")
+            print("Authorization does not exist")
+
+        # x = 10
+        # if x > 5:
+        #     print("Token exists")
+        # else:
+        #     print("Token does not exist")
         return f(*args, **kwargs)
 
     return decorated_function

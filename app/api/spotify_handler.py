@@ -2,11 +2,13 @@ import requests
 from app.api import bp
 from app.auth import auth
 from flask import session
+from app.auth.auth import token_required
 
 
 @bp.route("/getdata")
+@token_required
 def getdata():
-    auth.access_token()
+    return "<h1> Get Data </h1>"
 
     # if session["client_credentials"]:
     #     print("CREDENTIALS: \n")

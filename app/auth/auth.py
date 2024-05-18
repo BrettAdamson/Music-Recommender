@@ -4,8 +4,9 @@ import requests
 from app.api import bp
 from requests_oauthlib import OAuth2Session
 from requests.auth import HTTPBasicAuth
-from flask import redirect, request, session
+from flask import redirect, request, session, g, request, redirect, url_for
 import json
+from functools import wraps
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
@@ -64,3 +65,16 @@ def access_token():
         print("\n")
 
     return json.dumps(response.json())
+
+
+def token_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        x = 10
+        if x > 5:
+            print("Token exists")
+        else:
+            print("Token does not exist")
+        return f(*args, **kwargs)
+
+    return decorated_function

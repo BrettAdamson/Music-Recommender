@@ -7,6 +7,15 @@ from app.auth import auth
 # from app.api.routes import getdata
 
 
+@bp.before_request
+def check_tokens():
+    print("checking tokens")
+    if True:
+        authToken = auth.access_token()
+        print(authToken)
+    return
+
+
 @bp.route("/test")
 def web_index():
     authToken = auth.access_token()

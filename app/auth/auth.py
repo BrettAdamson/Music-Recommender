@@ -4,7 +4,7 @@ import requests
 from app.api import bp
 from requests_oauthlib import OAuth2Session
 from requests.auth import HTTPBasicAuth
-from flask import redirect, request, session, g, request, redirect, url_for
+from flask import redirect, request, session, request, redirect
 import json
 from functools import wraps
 
@@ -49,32 +49,34 @@ def spotify_redirect():
 
 @bp.route("/client_credentials", methods=["GET"])
 def access_token():
-    print("in access token")
     payload = {
         "grant_type": "client_credentials",
         "client_id": CLIENT_ID,
         "client_secret": CLIENT_SECRET,
     }
     response = requests.post("https://accounts.spotify.com/api/token", data=payload)
-    print(response.text)
-    access_token = response.json()["access_token"]
+    access_token = response.json()
     session["client_code"] = access_token
-    if session["client_code"]:
-        print("CREDENTIALS: \n")
-        print(session["client_code"])
-        print("\n")
-
     return json.dumps(response.json())
 
 
 def token_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        token = None
-        if "Authorization" in request.headers:
-            print("Authorization exists")
+        print(request.headers)
+        if session["auth_code"]:
+            request.headers["Authorization"] = "Bearer" + session["auth_code"]
+        elif session["client_code"]:
+            request.headers["Authorization"] = "Bearer" + session["client_code"]
         else:
-            print("Authorization does not exist")
+            token = access_token()["access_token"]
+            request.headers["Authorization"] = "Bearer" + token
+
+        # token = None
+        # if "Authorization" not in request.headers:
+        #     print("Authorization does not exist")
+
+        # return f(*args, **kwargs)
 
         # x = 10
         # if x > 5:

@@ -1,25 +1,41 @@
-from flask import render_template, flash, Blueprint
+from flask import render_template, flash, session
 from app.forms import SongForm
 from app.core import bp
 from app.api import spotify_handler
 from app.auth import auth
+import requests
+import json
 
 # from app.api.routes import getdata
 
 
-@bp.before_request
-def check_tokens():
-    print("checking tokens")
-    if True:
-        authToken = auth.access_token()
-        print(authToken)
-    return
+# @bp.before_request
+# def check_tokens():
+# print("checking tokens")
+# if session["auth_code"]:
+#     auth_token = session["auth_code"]
+# elif session["client_code"]:
+#     credential_token = session["client_code"]
+# else:
+#     auth.get_client_credentials()
+# return
+
+# if True:
+#     authToken = auth.access_token()
+#     print(authToken)
 
 
 @bp.route("/test")
 def web_index():
-    authToken = auth.access_token()
-    return authToken
+    # authToken = auth.get_client_credentials()
+
+    bearerToken = "Bearer " + session["client_code"]["access_token"]
+    print(bearerToken)
+    response = requests.get(
+        "https://api.spotify.com/v1/search?q=journey&type=artist",
+        headers={"Authorization": bearerToken},
+    )
+    return response.json()["artists"]["items"][0]
 
 
 @bp.route("/")

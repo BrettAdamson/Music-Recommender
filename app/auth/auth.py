@@ -42,13 +42,13 @@ def spotify_redirect():
             "redirect_uri": REDIRECT_URI,
         },
     )
-    access_token = response.json()["access_token"]
-    session["auth_code"] = access_token
-    return json.dumps(response.json())
+    auth_token = response.json()
+    session["auth_code"] = auth_token
+    return response.json()
 
 
 @bp.route("/client_credentials", methods=["GET"])
-def access_token():
+def get_client_credentials():
     payload = {
         "grant_type": "client_credentials",
         "client_id": CLIENT_ID,
@@ -57,20 +57,20 @@ def access_token():
     response = requests.post("https://accounts.spotify.com/api/token", data=payload)
     access_token = response.json()
     session["client_code"] = access_token
-    return json.dumps(response.json())
+    return response.json()
 
 
 def token_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         print(request.headers)
-        if session["auth_code"]:
-            request.headers["Authorization"] = "Bearer" + session["auth_code"]
-        elif session["client_code"]:
-            request.headers["Authorization"] = "Bearer" + session["client_code"]
-        else:
-            token = access_token()["access_token"]
-            request.headers["Authorization"] = "Bearer" + token
+        # if session["auth_code"]:
+        #     request.headers["Authorization"] = "Bearer" + session["auth_code"]
+        # elif session["client_code"]:
+        #     request.headers["Authorization"] = "Bearer" + session["client_code"]
+        # else:
+        #     token = access_token()["access_token"]
+        #     request.headers["Authorization"] = "Bearer" + token
 
         # token = None
         # if "Authorization" not in request.headers:

@@ -2,22 +2,23 @@ import requests
 from app.api import bp
 from app.auth import auth
 from flask import session
-from app.auth.auth import token_required
+from app.auth.auth import valid_token
 
 
-@bp.route("/getdata")
-@token_required
+@bp.route("/test")
+@valid_token
 def getdata():
-    return "<h1> Get Data </h1>"
+    # authToken = auth.get_client_credentials()
 
-    # if session["client_credentials"]:
-    #     print("CREDENTIALS: \n")
-    #     print(session["client_code"])
-    #     print("\n")
-    # elif session["auth_code"]:
-    #     print("CREDENTIALS: \n")
-    #     print(session["auth_code"])
-    #     print("\n")
+    bearerToken = "Bearer " + session["client_code"]["access_token"]
+    print(bearerToken)
+    response = requests.get(
+        "https://api.spotify.com/v1/search?q=journey&type=artist",
+        headers={"Authorization": bearerToken},
+    )
+
+    response.raise_for_status()
+    return response.json()
 
 
 # @bp.route("/spotify_token", methods=["GET"])

@@ -25,19 +25,6 @@ import json
 #     print(authToken)
 
 
-@bp.route("/test")
-def web_index():
-    # authToken = auth.get_client_credentials()
-
-    bearerToken = "Bearer " + session["client_code"]["access_token"]
-    print(bearerToken)
-    response = requests.get(
-        "https://api.spotify.com/v1/search?q=journey&type=artist",
-        headers={"Authorization": bearerToken},
-    )
-    return response.json()["artists"]["items"][0]
-
-
 @bp.route("/")
 def index():
     print("exited function")

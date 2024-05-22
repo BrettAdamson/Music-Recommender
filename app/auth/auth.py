@@ -7,6 +7,7 @@ from requests.auth import HTTPBasicAuth
 from flask import redirect, request, session, request, redirect
 import json
 from functools import wraps
+import urllib.error
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
@@ -60,29 +61,37 @@ def get_client_credentials():
     return response.json()
 
 
-def token_required(f):
+def valid_token(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        print(request.headers)
-        # if session["auth_code"]:
-        #     request.headers["Authorization"] = "Bearer" + session["auth_code"]
-        # elif session["client_code"]:
-        #     request.headers["Authorization"] = "Bearer" + session["client_code"]
-        # else:
-        #     token = access_token()["access_token"]
-        #     request.headers["Authorization"] = "Bearer" + token
+        try:
+            return f(*args, **kwargs)
+        except requests.exceptions.HTTPError as err:
+            print("\nEXCEPTION RAISED\n")
+            if err.response.status_code == 401:
+                print("Stale Token")
+                get_client_credentials()
 
-        # token = None
-        # if "Authorization" not in request.headers:
-        #     print("Authorization does not exist")
-
-        # return f(*args, **kwargs)
-
-        # x = 10
-        # if x > 5:
-        #     print("Token exists")
-        # else:
-        #     print("Token does not exist")
-        return f(*args, **kwargs)
+            return f(*args, **kwargs)
 
     return decorated_function
+
+    # if session["auth_code"]:
+    #     request.headers["Authorization"] = "Bearer" + session["auth_code"]
+    # elif session["client_code"]:
+    #     request.headers["Authorization"] = "Bearer" + session["client_code"]
+    # else:
+    #     token = access_token()["access_token"]
+    #     request.headers["Authorization"] = "Bearer" + token
+
+    # token = None
+    # if "Authorization" not in request.headers:
+    #     print("Authorization does not exist")
+
+    # return f(*args, **kwargs)
+
+    # x = 10
+    # if x > 5:
+    #     print("Token exists")
+    # else:
+    #     print("Token does not exist")

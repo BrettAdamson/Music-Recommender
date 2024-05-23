@@ -22,8 +22,8 @@ BASE_AUTH_URL = "https://accounts.spotify.com/authorize"
 TOKEN_URL = "https://accounts.spotify.com/api/token"
 
 
-@bp.route("/oauth2_token")
-def oauth_token():
+@bp.route("/auth_code")
+def get_oauth_token():
     spotify = OAuth2Session(CLIENT_ID, scope=SCOPE, redirect_uri=REDIRECT_URI)
     auth_url, state = spotify.authorization_url(BASE_AUTH_URL)
     print("url: " + auth_url)
@@ -48,6 +48,41 @@ def spotify_redirect():
     return response.json()
 
 
+@bp.route("/refresh_token", methods=["GET"])
+def refresh_token():
+    print(session["auth_code"]["refresh_token"])
+    response = requests.post(
+        TOKEN_URL,
+        auth=HTTPBasicAuth(CLIENT_ID, CLIENT_SECRET),
+        data={
+            "grant_type": "refresh_token",
+            "refresh_token": session["auth_code"]["refresh_token"],
+        },
+    )
+    auth_token = response.json()
+
+    session["auth_code"] = auth_token
+    return response.json()
+
+
+def valid_auth_code(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        try:
+            if session.get("auth_code") is None:
+                print("IN DECORATOR")
+                get_oauth_token()
+            return f(*args, **kwargs)
+        except requests.exceptions.HTTPError as err:
+            print("\nEXCEPTION RAISED\n")
+            if err.response.status_code == 401:
+                print("Stale Token. Using Refresh Token")
+                refresh_token()
+            return f(*args, **kwargs)
+
+    return decorated_function
+
+
 @bp.route("/client_credentials", methods=["GET"])
 def get_client_credentials():
     payload = {
@@ -61,37 +96,19 @@ def get_client_credentials():
     return response.json()
 
 
-def valid_token(f):
+def valid_client_credentials(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         try:
+            if session.get("client_code") is None:
+                get_client_credentials()
             return f(*args, **kwargs)
         except requests.exceptions.HTTPError as err:
             print("\nEXCEPTION RAISED\n")
             if err.response.status_code == 401:
-                print("Stale Token")
+                print("Stale Token. Getting New Client Credentials")
                 get_client_credentials()
 
             return f(*args, **kwargs)
 
     return decorated_function
-
-    # if session["auth_code"]:
-    #     request.headers["Authorization"] = "Bearer" + session["auth_code"]
-    # elif session["client_code"]:
-    #     request.headers["Authorization"] = "Bearer" + session["client_code"]
-    # else:
-    #     token = access_token()["access_token"]
-    #     request.headers["Authorization"] = "Bearer" + token
-
-    # token = None
-    # if "Authorization" not in request.headers:
-    #     print("Authorization does not exist")
-
-    # return f(*args, **kwargs)
-
-    # x = 10
-    # if x > 5:
-    #     print("Token exists")
-    # else:
-    #     print("Token does not exist")

@@ -19,6 +19,10 @@ def get_session():
     print("\n Print Session \n")
     print(session["auth_code"])
     print(session["client_code"])
+    if not session.get("auth_code"):
+        print("not in session")
+    else:
+        print(session.get("auth_code"))
 
     return "Print Session"
 
@@ -41,6 +45,7 @@ def test_client():
 @bp.route("/test_auth")
 @valid_auth_code
 def test_auth():
+    print(session["auth_code"]["access_token"])
     bearerToken = "Bearer " + session["auth_code"]["access_token"]
     print(bearerToken)
     response = requests.get(

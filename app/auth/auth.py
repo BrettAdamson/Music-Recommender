@@ -33,6 +33,7 @@ def get_oauth_token():
 
 @bp.route("/redirect")
 def spotify_redirect():
+    print("In redirect")
     code = request.args.get("code")
     response = requests.post(
         TOKEN_URL,
@@ -69,9 +70,10 @@ def valid_auth_code(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         try:
-            if session.get("auth_code") is None:
+            if not session.get("auth_code"):
                 print("IN DECORATOR")
-                get_oauth_token()
+                # if no auth token redirect to login page
+                return get_oauth_token()
             return f(*args, **kwargs)
         except requests.exceptions.HTTPError as err:
             print("\nEXCEPTION RAISED\n")
@@ -100,7 +102,7 @@ def valid_client_credentials(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         try:
-            if session.get("client_code") is None:
+            if not session.get("client_code"):
                 get_client_credentials()
             return f(*args, **kwargs)
         except requests.exceptions.HTTPError as err:

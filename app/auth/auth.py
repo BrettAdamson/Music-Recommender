@@ -1,13 +1,12 @@
 import os
 from dotenv import load_dotenv
 import requests
-from app.api import bp
+from app.auth import bp
 from requests_oauthlib import OAuth2Session
 from requests.auth import HTTPBasicAuth
-from flask import redirect, request, session, request, redirect
+from flask import request, session, redirect, render_template
 import json
 from functools import wraps
-import urllib.error
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
@@ -73,7 +72,7 @@ def valid_auth_code(f):
             if not session.get("auth_code"):
                 print("IN DECORATOR")
                 # if no auth token redirect to login page
-                return get_oauth_token()
+                return render_template("spotify_login.html", title="Authorize")
             return f(*args, **kwargs)
         except requests.exceptions.HTTPError as err:
             print("\nEXCEPTION RAISED\n")

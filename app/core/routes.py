@@ -6,24 +6,6 @@ from app.auth import auth
 import requests
 import json
 
-# from app.api.routes import getdata
-
-
-# @bp.before_request
-# def check_tokens():
-# print("checking tokens")
-# if session["auth_code"]:
-#     auth_token = session["auth_code"]
-# elif session["client_code"]:
-#     credential_token = session["client_code"]
-# else:
-#     auth.get_client_credentials()
-# return
-
-# if True:
-#     authToken = auth.access_token()
-#     print(authToken)
-
 
 @bp.route("/")
 def index():
@@ -38,7 +20,8 @@ def song_search():
     if form.validate_on_submit():
         print("valid")
         flash("{} by {}".format(form.song.data, form.artist.data))
-        # return redirect("/index")
+        track = spotify_handler.search_song(form.artist.data, form.song.data)
+        return track
     else:
         print("invalid song")
 

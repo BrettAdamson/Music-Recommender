@@ -59,11 +59,11 @@ def test_auth():
 @valid_client_credentials
 def search_song(artist, song):
     bearerToken = "Bearer " + session["client_code"]["access_token"]
-    URL = "https://api.spotify.com/v1/search?q=track:As It Was artist:Harry Styles"
-    response = requests.get(
-        URL,
-        headers={"Authorization": bearerToken},
+    URL = (
+        "https://api.spotify.com/v1/search?q="
+        "track=" + song + "artist=" + artist + "&type=track&limit=1"
     )
+    response = requests.get(URL, headers={"Authorization": bearerToken})
     response.raise_for_status()
     return response.json()
 

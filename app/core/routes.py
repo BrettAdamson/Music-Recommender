@@ -21,7 +21,12 @@ def song_search():
         print("valid")
         flash("{} by {}".format(form.song.data, form.artist.data))
         track = spotify_handler.search_song(form.artist.data, form.song.data)
+        print(track["album"]["name"])
+        print(track["artists"][0]["name"])
+        print(track["name"])
+        # print(track["album"]["0"]["url"])
         return track
+
     else:
         print("invalid song")
 

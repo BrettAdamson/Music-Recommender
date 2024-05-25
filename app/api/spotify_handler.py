@@ -65,7 +65,7 @@ def search_song(artist, song):
     )
     response = requests.get(URL, headers={"Authorization": bearerToken})
     response.raise_for_status()
-    return response.json()
+    return response.json()["tracks"]["items"][0]
 
 
 # @bp.route("/spotify_token", methods=["GET"])

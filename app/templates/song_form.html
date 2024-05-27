@@ -32,8 +32,10 @@
       </div>
       <div>
         {% for item in recommendation_tracks %}
-        <h1> {{item.name }} by {{item.artist.name}} from {{item.album.name}}</h1>
-
+        <h1> {{item.name }} by {{item.artists[0].name}} from {{item.album.name}}</h1>
+        <div class ="w-2/5 h-2/5">
+          <img src="{{item.album.images[0].url}}" class ="">
+        </div>
         {% endfor %}
       </div>
 {% endblock %}

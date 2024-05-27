@@ -30,4 +30,10 @@
         <h1> No Song Selected</h1>
         {% endif %}
       </div>
+      <div>
+        {% for item in recommendation_tracks %}
+        <h1> {{item.name }} by {{item.artist.name}} from {{item.album.name}}</h1>
+
+        {% endfor %}
+      </div>
 {% endblock %}

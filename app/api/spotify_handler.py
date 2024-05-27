@@ -32,7 +32,6 @@ def get_session():
 def test_client():
 
     bearerToken = "Bearer " + session["client_code"]["access_token"]
-    print(bearerToken)
     response = requests.get(
         "https://api.spotify.com/v1/search?q=journey&type=artist",
         headers={"Authorization": bearerToken},
@@ -53,6 +52,31 @@ def test_auth():
         headers={"Authorization": bearerToken},
     )
 
+    response.raise_for_status()
+    return response.json()
+
+
+@valid_client_credentials
+def search_song(artist, song):
+    bearerToken = "Bearer " + session["client_code"]["access_token"]
+    URL = (
+        "https://api.spotify.com/v1/search?q="
+        "track=" + song + "artist=" + artist + "&type=track&limit=1"
+    )
+    response = requests.get(URL, headers={"Authorization": bearerToken})
+    response.raise_for_status()
+    return response.json()["tracks"]["items"][0]
+
+
+@valid_client_credentials
+def recommend_song_by_track(track_id):
+    bearerToken = "Bearer " + session["client_code"]["access_token"]
+    URL = (
+        "https://api.spotify.com/v1/recommendations?seed_tracks="
+        + track_id
+        + "&limit=10"
+    )
+    response = requests.get(URL, headers={"Authorization": bearerToken})
     response.raise_for_status()
     return response.json()
 

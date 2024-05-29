@@ -1,5 +1,5 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Hi, {{ user.username }}!</h1>
+<button><a href="{{ url_for('auth.get_oauth_token') }}">Spotify</a></button>
 {% endblock %}

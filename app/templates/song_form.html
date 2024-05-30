@@ -1,56 +1,71 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="flex flex-col justify-center items-center gap-1 ">
     <h1>Song Search</h1>
+    <div class="flex flex-col justify-center items-center gap-1" >
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
-        <p>
-            {{ form.song.label }}<br>
+        <div class="flex flex-col justify-center items-center ">
+            {{ form.song.label }}
             {{ form.song(size=32,class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder="Hotel California") }}
             {% for error in form.song.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
-        <p>
-            {{ form.artist.label }}<br>
+        
+          {{ form.artist.label }}
             {{ form.artist(size=32,class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder="Eagles") }}
             {% for error in form.artist.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
-        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{{ form.submit(class="cursor-pointer") }}</button>
-    </form>
     
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{{ form.submit(class="cursor-pointer") }}</button>
+      </div>
+    </form>
 
-<form class="max-w-sm mx-auto" action="" method="post" novalidate>
-  <div class="mb-5">
-    <label for="song" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Song Search</label>
-    <input type="song" id="song" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Hotel California" required />
   </div>
-  <div class="mb-5">
-    <label for="artist" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Artist</label>
-    <input type="artist" id="artist" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Eagles"required />
-  </div>
-  <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-</form>
+
+</div>
 
 
-    <div class = "flex flex-col justify-center items-center gap-1">
+
+    <div class = "flex gap-1 ">
+      <div class ="w-1/3"></div>
+      <div class ="w-1/3">
         {% if song_name %}
-        <h1> {{song_name }} by {{artist_name}}</h1>
-        <div class ="w-2/5 h-2/5">
-          <img src="{{album_image}}" class ="">
+        <h1 class="text-center py-1 my-1"> {{song_name }} by {{artist_name}}</h1>
+     
+          <img class = "" src="{{album_image}}" class ="">
         </div>
         {% else %}
         <h1> No Song Selected</h1>
         {% endif %}
       </div>
-      <div>
-        {% for item in recommendation_tracks %}
-        <h1> {{item.name }} by {{item.artists[0].name}} from {{item.album.name}}</h1>
-        <div class ="w-2/5 h-2/5">
-          <img src="{{item.album.images[0].url}}" class ="">
+      <div class ="w-1/3"></div>
+
+
+
+  <!-- <div class = "block columns-2">
+        {% for column in recommendation_tracks | slice(1) %}
+        <div >
+          {% for item in column %}
+          <h1> {{item.name }} </h1>
+          {% endfor %}
         </div>
         {% endfor %}
       </div>
+    </div>  -->
+      <div class = "flex ">
+
+<div class ="w-1/4"></div>       
+ {% for item in recommendation_tracks %}
+        <div class="justify-center items-center gap-1  w-1/4" >
+        <h1 class="text-center"> {{item.name }} by {{item.artists[0].name}} </h1>
+        <img class = "m-2 p-2" src="{{item.album.images[0].url}}" class ="">
+        </div>
+        {% endfor %}
+        <div class="w-1/4"></div>       
+
+      </div>
+   
 {% endblock %}

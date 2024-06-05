@@ -1,6 +1,8 @@
 <!doctype html>
 <html>
     <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='/css/output.css') }}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
         {% if title %}
         <title>{{ title }} - Microblog</title>
         {% else %}
@@ -8,6 +10,7 @@
         {% endif %}
     </head>
     <body>
+   
         <div>
             Microblog:
             <a href="{{ url_for('core.index') }}">Home</a>

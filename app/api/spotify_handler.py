@@ -74,7 +74,7 @@ def recommend_song_by_track(track_id):
     URL = (
         "https://api.spotify.com/v1/recommendations?seed_tracks="
         + track_id
-        + "&limit=10"
+        + "&limit=9"
     )
     response = requests.get(URL, headers={"Authorization": bearerToken})
     response.raise_for_status()

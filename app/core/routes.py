@@ -10,8 +10,7 @@ import json
 @bp.route("/")
 def index():
     print("exited function")
-    user = {"username": "Brett"}
-    return render_template("index.html", title="Home", user=user)
+    return render_template("index.html", title="Home")
 
 
 @bp.route("/search", methods=["GET", "POST"])

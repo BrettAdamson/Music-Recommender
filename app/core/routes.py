@@ -25,15 +25,10 @@ def song_search():
         artist_name = track["artists"][0]["name"]
         album_image = track["album"]["images"][0]["url"]
         track_id = track["id"]
+        preview_url = track["preview_url"]
         recommendations = spotify_handler.recommend_song_by_track(track_id)
         recommendation_tracks = recommendations["tracks"]
-        print(recommendations)
-        print(album_name)
-        print(song_name)
-        print(artist_name)
-        print(album_image)
-        print(track_id)
-        # return recommendations
+        # return track
         return render_template(
             "song_form.html",
             title="Song Search",
@@ -42,6 +37,7 @@ def song_search():
             artist_name=artist_name,
             album_image=album_image,
             recommendation_tracks=recommendation_tracks,
+            preview_url=preview_url,
         )
     else:
         print("invalid song")

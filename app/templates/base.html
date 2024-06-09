@@ -2,7 +2,9 @@
 <html>
     <head>
         <link rel="stylesheet" href="{{ url_for('static', filename='/css/output.css') }}">
+        <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+        <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
         {% if title %}
         <title>{{ title }} - Microblog</title>
         {% else %}

@@ -69,6 +69,15 @@ def search_song(artist, song):
 
 
 @valid_client_credentials
+def get_track(track_id):
+    bearerToken = "Bearer " + session["client_code"]["access_token"]
+    URL = "https://api.spotify.com/v1/tracks/" + track_id
+    response = requests.get(URL, headers={"Authorization": bearerToken})
+    response.raise_for_status()
+    return response.json()
+
+
+@valid_client_credentials
 def recommend_song_by_track(track_id):
     bearerToken = "Bearer " + session["client_code"]["access_token"]
     URL = (

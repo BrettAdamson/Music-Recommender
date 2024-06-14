@@ -4,7 +4,7 @@
 <div class="flex flex-col justify-center items-center gap-1 ">
   <h1>Song Search</h1>
   <div class="flex flex-col justify-center items-center gap-1">
-    <form action="" method="post" novalidate>
+    <form action="{{ url_for('core.song_search_form') }}"method="post" novalidate>
       {{ form.hidden_tag() }}
       <div class="flex flex-col justify-center items-center">
         {{ form.song.label }}

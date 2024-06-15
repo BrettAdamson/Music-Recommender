@@ -12,7 +12,7 @@
           {{ form.song(size=32,class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
           focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
           dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
-          placeholder="Hotel California") }}
+          placeholder="Song Name") }}
           {% for error in form.song.errors %}
           <span style="color: red;">[{{ error }}]</span>
           {% endfor %}
@@ -21,7 +21,7 @@
         {{ form.artist(size=32,class=" p-1 m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
-        placeholder="Eagles") }}
+        placeholder="Artist Name") }}
         {% for error in form.artist.errors %}
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
@@ -49,7 +49,7 @@
     {% if preview_url %}
     <div class ="player-wrapper">
 
-    <audio id="player" class="m-3 p-5  js-player" style="--plyr-color-main: #1ac266; --plyr-audio-controls-background:" controls>
+    <audio id="player" class="m-3 p-5  js-player" style="--plyr-color-main: #1ac266;" controls>
       <source src="{{preview_url}}" type="audio/mpeg">
     </audio>
     </div>
@@ -71,9 +71,9 @@
   <div class="w-1/3"></div>
   <div class="grid grid-rows-3 grid-flow-col gap-4">
     {% for item in recommendation_tracks %}
-    <div  class =" max-w-sm border bg-white border-gray-200 rounded-lg  shadow  dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700  ">
+    <div  class =" max-w-sm border   rounded-lg shadow  ">
     <a href="{{ url_for('core.song_search_form',id=item.id) }}">
-    <div >
+    <div class="border shadow rounded-t-lg dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700  ">
       <h1 class=" text-center min-h-12 text-balance line-clamp-2"> {{item.name }} by {{item.artists[0].name}} </h1>
       <img class=" rounded-t-lg w-100% h-100% object-cover min-h-72  min-w-72" src="{{item.album.images[0].url}}" class="">
     </div>
@@ -84,17 +84,23 @@
           <source src="{{item.preview_url}}" type="audio/mpeg">
       </audio>
       <div class = "flex">
-   
+        {% else %}
+        <h1 class=" text-center min-h-12 "> Preview Unavailable </h1>
+        {% endif %}
+        {% if session["auth_code"] %}
+      <button class="rounded-bl-lg text-white bg-red-700 hover:bg-red-800 grow">Add to playlist
+      </button>
+      <button class="rounded-br-lg text-white bg-green-700  hover:bg-green-800 grow">Open in Spotify
+      </button>
+      {% else %}
+      <button class="rounded-b-lg text-white bg-green-700  hover:bg-green-800 grow">Connect with Spotify
+      </button>
 
-      <button class=" text-white bg-red-700 hover:bg-red-800 grow">Add to playlist
-      </button>
-      <button class=" text-white bg-green-700  hover:bg-green-800 grow">Open in Spotify
-      </button>
+      {% endif %}
+
     </div>  
     </div>
-      {% else %}
-      <h1 class=" text-center min-h-12 "> Preview Unavailable </h1>
-      {% endif %}
+
   
  
 </div>
@@ -106,10 +112,11 @@
   const players = Array.from(document.querySelectorAll('.js-player')).map((p) => new Plyr(p));
 </script>
 <style>
-  .player-wrapper > .plyr {
+ /* .player-wrapper > .plyr {
     border-bottom-right-radius: 0.46rem;
     border-bottom-left-radius: 0.46rem;
-}
+} */
+.plyr__volume { max-width:min-content; /* what lets you expand the progres bar */ }
 </style>
 
 {% endblock %}

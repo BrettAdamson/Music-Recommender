@@ -56,7 +56,12 @@
     {% else %}
     <h1 class=" text-center min-h-12 "> Preview Unavailable </h1>
     {% endif %}
-
+    <div class = "flex">
+    <button class="rounded-bl-lg text-white bg-red-700 hover:bg-red-800 grow">Add to playlist
+    </button>
+    <button class="rounded-br-lg text-white bg-green-700  hover:bg-green-800 grow">Open in Spotify
+    </button>
+  </div>
     {% else %}
     <h1 class="text-center gap-1"> No Song Selected</h1>
     {% endif %}
@@ -87,7 +92,12 @@
       {% else %}
       <h1 class=" text-center min-h-12 "> Preview Unavailable </h1>
       {% endif %}
-  
+      <div class = "flex">
+        <button class="rounded-bl-lg text-white bg-red-700 hover:bg-red-800 grow">Add to playlist
+        </button>
+        <button class="rounded-br-lg text-white bg-green-700  hover:bg-green-800 grow">Open in Spotify
+        </button>
+      </div>
  
 </div>
     {% endfor %}
@@ -99,9 +109,12 @@
   const players = Array.from(document.querySelectorAll('.js-player')).map((p) => new Plyr(p));
 </script>
 <style>
-  .player-wrapper > .plyr {
+  /* .player-wrapper > .plyr {
     border-bottom-right-radius: 0.46rem;
     border-bottom-left-radius: 0.46rem;
+} */
+.plyr__volume {
+  max-width: min-content;
 }
 </style>
 

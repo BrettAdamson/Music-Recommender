@@ -19,26 +19,12 @@ def song_search_form(id):
     if form.validate_on_submit():
         spotify_data = song_search(form.artist.data, form.song.data)
         return render_template(
-            "song_form.html",
-            title="Song Search",
-            form=form,
-            song_name=spotify_data["song_name"],
-            artist_name=spotify_data["artist_name"],
-            album_image=spotify_data["album_image"],
-            recommendation_tracks=spotify_data["recommendation_tracks"],
-            preview_url=spotify_data["preview_url"],
+            "song_form.html", title="Song Search", form=form, spotify_data=spotify_data
         )
     elif id is not None:
         spotify_data = song_search_by_id(id)
         return render_template(
-            "song_form.html",
-            title="Song Search",
-            form=form,
-            song_name=spotify_data["song_name"],
-            artist_name=spotify_data["artist_name"],
-            album_image=spotify_data["album_image"],
-            recommendation_tracks=spotify_data["recommendation_tracks"],
-            preview_url=spotify_data["preview_url"],
+            "song_form.html", title="Song Search", form=form, spotify_data=spotify_data
         )
     else:
         print("invalid song")
@@ -56,12 +42,14 @@ def song_search_by_id(id):
         preview_url = track["preview_url"]
         recommendations = spotify_handler.recommend_song_by_track(id)
         recommendation_tracks = recommendations["tracks"]
+        spotify_url = track["external_urls"]["spotify"]
         spotify_data = {
             "song_name": song_name,
             "artist_name": artist_name,
             "album_image": album_image,
             "recommendation_tracks": recommendation_tracks,
             "preview_url": preview_url,
+            "spotify_url": spotify_url,
         }
         return spotify_data
     else:
@@ -81,6 +69,7 @@ def song_search(input_artist, input_song):
         preview_url = track["preview_url"]
         recommendations = spotify_handler.recommend_song_by_track(track_id)
         recommendation_tracks = recommendations["tracks"]
+        spotify_url = track["external_urls"]["spotify"]
         # return track
         spotify_data = {
             "song_name": song_name,
@@ -88,6 +77,7 @@ def song_search(input_artist, input_song):
             "album_image": album_image,
             "recommendation_tracks": recommendation_tracks,
             "preview_url": preview_url,
+            "spotify_url": spotify_url,
         }
         return spotify_data
     else:

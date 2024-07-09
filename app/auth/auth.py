@@ -5,7 +5,6 @@ from app.auth import bp
 from requests_oauthlib import OAuth2Session
 from requests.auth import HTTPBasicAuth
 from flask import request, session, redirect, render_template
-import json
 from functools import wraps
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"

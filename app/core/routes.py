@@ -1,9 +1,7 @@
-from flask import render_template, flash, session, request
+from flask import render_template
 from app.forms import SongForm
 from app.core import bp
 from app.api import spotify_handler
-from app.auth import auth
-import json
 
 
 # @bp.route("/")

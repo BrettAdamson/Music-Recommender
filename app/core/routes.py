@@ -6,14 +6,14 @@ from app.auth import auth
 import json
 
 
-@bp.route("/")
-def index():
-    print("exited function")
-    return render_template("index.html", title="Home")
+# @bp.route("/")
+# def index():
+#     print("exited function")
+#     return render_template("index.html", title="Home")
 
 
-@bp.route("/search", methods=["GET", "POST"], defaults={"id": None})
-@bp.route("/search/<id>", methods=["GET", "POST"])
+@bp.route("/", methods=["GET", "POST"], defaults={"id": None})
+@bp.route("/<id>", methods=["GET", "POST"])
 def song_search_form(id):
     form = SongForm()
     if form.validate_on_submit():

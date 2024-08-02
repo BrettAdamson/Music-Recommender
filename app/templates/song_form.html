@@ -59,7 +59,10 @@
     {% endif %}
     <div class="flex">
 
-      <a href="{{ spotify_data.spotify_url }}" target="_blank" class="rounded-b-lg text-white bg-green-700  hover:bg-green-800 grow text-center">Open in Spotify
+      <a href="{{ spotify_data.spotify_url }}" target="_blank" class=" flex items-center justify-center rounded-b-lg text-white bg-black  grow ">
+        <img class="max-h-6 pr-2" src="..\static\spotify-brand\icons\Spotify_Icon_RGB_Green.png">
+
+        <span>PLAY ON SPOTIFY</span>
       </a>
     </div>
     {% else %}
@@ -97,8 +100,12 @@
       {% endif %}
       <div class="flex  flex-1 ">
     
-        <a href="{{ item.spotify_url }}" target="_blank" class="rounded-b-lg text-white bg-green-700  hover:bg-green-800 grow text-center">Open in Spotify
+        <a href="{{ item.spotify_url }}" target="_blank" class=" flex items-center justify-center rounded-b-lg text-white bg-black  grow ">
+          <img class="max-h-6 pr-2" src="..\static\spotify-brand\icons\Spotify_Icon_RGB_Green.png">
+
+          <span>PLAY ON SPOTIFY</span>
         </a>
+
       </div>
 
     </div>

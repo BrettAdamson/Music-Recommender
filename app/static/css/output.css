@@ -589,10 +589,6 @@ video {
   display: grid;
 }
 
-.max-h-12 {
-  max-height: 3rem;
-}
-
 .max-h-6 {
   max-height: 1.5rem;
 }
@@ -674,11 +670,6 @@ video {
   border-bottom-left-radius: 0.5rem;
 }
 
-.rounded-t-lg {
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-}
-
 .border {
   border-width: 1px;
 }
@@ -693,6 +684,11 @@ video {
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
 
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
 .bg-blue-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
@@ -703,19 +699,24 @@ video {
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
-.bg-green-700 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(21 128 61 / var(--tw-bg-opacity));
-}
-
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-black {
+.bg-dark-shades {
   --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+  background-color: rgb(18 25 43 / var(--tw-bg-opacity));
+}
+
+.bg-main-colour {
+  --tw-bg-opacity: 1;
+  background-color: rgb(88 98 146 / var(--tw-bg-opacity));
+}
+
+.bg-dark-accent {
+  --tw-bg-opacity: 1;
+  background-color: rgb(125 134 165 / var(--tw-bg-opacity));
 }
 
 .object-cover {
@@ -725,6 +726,10 @@ video {
 
 .p-1 {
   padding: 0.25rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
 }
 
 .p-2\.5 {
@@ -737,10 +742,6 @@ video {
 
 .p-6 {
   padding: 1.5rem;
-}
-
-.p-2 {
-  padding: 0.5rem;
 }
 
 .px-5 {
@@ -780,6 +781,11 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.text-light-shade {
+  --tw-text-opacity: 1;
+  color: rgb(227 234 235 / var(--tw-text-opacity));
+}
+
 .shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
@@ -796,9 +802,9 @@ video {
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-green-800:hover {
+.hover\:bg-light-accent:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(22 101 52 / var(--tw-bg-opacity));
+  background-color: rgb(135 151 189 / var(--tw-bg-opacity));
 }
 
 .focus\:border-blue-500:focus {
@@ -882,6 +888,11 @@ video {
   .dark\:hover\:bg-gray-700:hover {
     --tw-bg-opacity: 1;
     background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+  }
+
+  .dark\:hover\:bg-light-accent:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(135 151 189 / var(--tw-bg-opacity));
   }
 
   .dark\:focus\:border-blue-500:focus {

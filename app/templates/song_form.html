@@ -27,7 +27,7 @@
         {% endfor %}
         <div>
           <button type="submit"
-            class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{{
+            class=" text-white bg-main-colour hover:bg-light-accent focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{{
             form.submit(class="cursor-pointer") }}</button>
         </div>
       </div>
@@ -59,8 +59,8 @@
     {% endif %}
     <div class="flex">
 
-      <a href="{{ spotify_data.spotify_url }}" target="_blank" class=" flex items-center justify-center rounded-b-lg text-white bg-black  grow ">
-        <img class="max-h-6 pr-2" src="..\static\spotify-brand\icons\Spotify_Icon_RGB_Green.png">
+      <a href="{{ spotify_data.spotify_url }}" target="_blank" class=" p-2 flex items-center justify-center rounded-b-lg text-light-shade bg-dark-accent  grow ">
+        <img class="max-h-6 pr-2" src="..\static\spotify-brand\icons\Spotify_Icon_RGB_White.png">
 
         <span>PLAY ON SPOTIFY</span>
       </a>
@@ -81,9 +81,9 @@
   <div class="grid grid-rows-3 grid-flow-col gap-4">
     {% for item in spotify_data.recommendation_tracks %}
     <div
-      class=" flex flex-col max-w-sm border bg-white border-gray-200 rounded-lg  rounded-corners shadow  dark:bg-gray-800 dark:border-gray-700   ">
+      class=" flex flex-col max-w-sm border bg-white border-gray-200 rounded-lg  rounded-corners shadow   bg-main-colour ">
       <a href="{{ url_for('core.song_search_form',id=item.id) }}" >
-        <div class = " hover:bg-gray-100 dark:hover:bg-gray-700  rounded-lg">
+        <div class = "  dark:hover:bg-light-accent  rounded-lg">
           <h1 class=" text-center min-h-12 text-balance line-clamp-2"> {{item.name }} by {{item.artists[0].name}} </h1>
           <img class="  w-100% h-100% object-cover min-h-72  min-w-72" src="{{item.album.images[0].url}}"
             class="">
@@ -100,7 +100,7 @@
       {% endif %}
       <div class="flex  flex-1 ">
     
-        <a href="{{ item.external_urls.spotify }}" target="_blank" class=" p-2 flex items-center justify-center rounded-b-lg text-white bg-black  grow ">
+        <a href="{{ item.external_urls.spotify }}" target="_blank" class=" p-2 flex items-center justify-center rounded-b-lg text-light-shade bg-dark-accent  grow ">
           <img class="max-h-6 pr-2" src="..\static\spotify-brand\icons\Spotify_Icon_RGB_White.png">
 
           <span>PLAY ON SPOTIFY</span>

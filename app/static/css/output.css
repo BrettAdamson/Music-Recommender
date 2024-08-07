@@ -601,6 +601,18 @@ video {
   min-height: 18rem;
 }
 
+.min-h-10 {
+  min-height: 2.5rem;
+}
+
+.min-h-14 {
+  min-height: 3.5rem;
+}
+
+.min-h-11 {
+  min-height: 2.75rem;
+}
+
 .w-1\/3 {
   width: 33.333333%;
 }

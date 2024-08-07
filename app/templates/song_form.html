@@ -2,30 +2,27 @@
 
 {% block content %}
 <div class="flex flex-col justify-center items-center gap-1 ">
-  <h1>Song Search</h1>
   <div class="flex flex-col justify-center items-center gap-1">
     <form action="{{ url_for('core.song_search_form') }}" method="post" novalidate>
       {{ form.hidden_tag() }}
       <div class="flex flex-col justify-center items-center">
         {{ form.song.label }}
-        <div class="p-6 m-1">
-          {{ form.song(size=32,class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-          focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+          {{ form.song(size=32,class=" p-3 m-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+          focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600
           dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
           ) }}
           {% for error in form.song.errors %}
           <span style="color: red;">[{{ error }}]</span>
           {% endfor %}
-        </div>
         {{ form.artist.label }}
-        {{ form.artist(size=32,class=" p-1 m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+        {{ form.artist(size=32,class="  p-3 m-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
         ) }}
         {% for error in form.artist.errors %}
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
-        <div>
+        <div class = "mt-2">
           <button type="submit"
             class=" text-white bg-main-colour hover:bg-light-accent  font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">{{
             form.submit(class="cursor-pointer") }}</button>
@@ -98,7 +95,7 @@
       </div>
       {% else %}
       <div class ="">
-        <h1 class=" text-center min-h-10"> Preview Unavailable </h1>
+        <h1 class=" text-center min-h-10 pt-2"> Preview Unavailable </h1>
       </div>      {% endif %}
       <div class="flex  flex-1 ">
     

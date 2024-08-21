@@ -694,12 +694,12 @@ video {
 
 .bg-dark-accent {
   --tw-bg-opacity: 1;
-  background-color: rgb(149 155 166 / var(--tw-bg-opacity));
+  background-color: rgb(131 115 126 / var(--tw-bg-opacity));
 }
 
 .bg-dark-shades {
   --tw-bg-opacity: 1;
-  background-color: rgb(59 55 58 / var(--tw-bg-opacity));
+  background-color: rgb(41 61 79 / var(--tw-bg-opacity));
 }
 
 .bg-gray-50 {
@@ -709,7 +709,7 @@ video {
 
 .bg-main-colour {
   --tw-bg-opacity: 1;
-  background-color: rgb(126 145 162 / var(--tw-bg-opacity));
+  background-color: rgb(143 154 166 / var(--tw-bg-opacity));
 }
 
 .bg-white {
@@ -780,7 +780,7 @@ video {
 
 .text-light-shade {
   --tw-text-opacity: 1;
-  color: rgb(249 249 248 / var(--tw-text-opacity));
+  color: rgb(246 243 242 / var(--tw-text-opacity));
 }
 
 .text-white {
@@ -796,7 +796,7 @@ video {
 
 .hover\:bg-light-accent:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(178 177 170 / var(--tw-bg-opacity));
+  background-color: rgb(179 159 108 / var(--tw-bg-opacity));
 }
 
 .focus\:outline-none:focus {
@@ -808,11 +808,6 @@ video {
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
   --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-}
-
-.focus\:ring-violet-300:focus {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(196 181 253 / var(--tw-ring-opacity));
 }
 
 @media (min-width: 640px) {

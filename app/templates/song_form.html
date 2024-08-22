@@ -8,13 +8,13 @@
     >
       {{ form.hidden_tag() }}
       <div class="flex flex-col justify-center items-center">
-        {{ form.song.label }} {{ form.song(size=32,class=" p-3 m-2 bg-gray-50
-        border border-gray-300 text-gray-900 text-sm rounded-lg block w-full  focus:outline-none focus:ring focus:dark-accent", )
+        {{ form.song.label }} {{ form.song(size=32, id="songInput", class=" p-3 m-2 bg-gray-50
+        border border-gray-300 text-gray-900 text-sm rounded-lg block w-full  focus:outline-none focus:ring focus:dark-accent", autocomplete="off", oninput="songAutocomplete()" )
         }} {% for error in form.song.errors %}
         <span style="color: red">[{{ error }}]</span>
-        {% endfor %} {{ form.artist.label }} {{ form.artist(size=32,class=" p-3
+        {% endfor %} {{ form.artist.label }} {{ form.artist(size=32,id="artistInput",class=" p-3
         m-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-        block w-full p-2.5 focus:outline-none focus:ring focus:dark-accent", ) }} {% for error in form.artist.errors %}
+        block w-full p-2.5 focus:outline-none focus:ring focus:dark-accent",autocomplete="off",oninput="artistAutocomplete()" ) }} {% for error in form.artist.errors %}
         <span style="color: red">[{{ error }}]</span>
         {% endfor %}
         <div class="mt-2">
@@ -22,8 +22,10 @@
             type="submit"
             class="text-white bg-main-colour hover:bg-light-accent font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
-            {{ form.submit(class="cursor-pointer") }}
+            {{ form.submit(class="cursor-pointer" ) }}
           </button>
+          <p id="songDemo"></p>
+          <p id="artistDemo"></p>
         </div>
       </div>
     </form>
@@ -138,6 +140,19 @@
 {% endif %}
 
 <script>
+
+  function songAutocomplete(){
+    let x = document.getElementById("songInput").value;
+    document.getElementById("songDemo").innerHTML = "Song: " + x;
+
+  }
+  function artistAutocomplete(){
+    let x = document.getElementById("artistInput").value;
+    document.getElementById("artistDemo").innerHTML = "Artist: " + x;
+
+  }
+
+
   const players = Array.from(document.querySelectorAll(".js-player")).map(
     (p) => new Plyr(p)
   );

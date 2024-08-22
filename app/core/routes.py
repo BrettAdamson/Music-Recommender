@@ -70,6 +70,7 @@ def song_search(input_artist, input_song):
         spotify_url = track["external_urls"]["spotify"]
         # return track
         spotify_data = {
+            "track": track,
             "song_name": song_name,
             "artist_name": artist_name,
             "album_image": album_image,

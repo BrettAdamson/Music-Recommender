@@ -1,106 +1,135 @@
-{% extends "base.html" %}
-
-{% block content %}
-<div class="flex flex-col justify-center items-center gap-1 ">
-  <h1>Song Search</h1>
+{% extends "base.html" %} {% block content %}
+<div class="flex flex-col justify-center items-center gap-1">
   <div class="flex flex-col justify-center items-center gap-1">
-    <form action="{{ url_for('core.song_search_form') }}" method="post" novalidate>
+    <form
+      action="{{ url_for('core.song_search_form') }}"
+      method="post"
+      novalidate
+    >
       {{ form.hidden_tag() }}
       <div class="flex flex-col justify-center items-center">
-        {{ form.song.label }}
-        <div class="p-6 m-1">
-          {{ form.song(size=32,class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-          focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
-          dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
-          ) }}
-          {% for error in form.song.errors %}
-          <span style="color: red;">[{{ error }}]</span>
-          {% endfor %}
-        </div>
-        {{ form.artist.label }}
-        {{ form.artist(size=32,class=" p-1 m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
-        dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
-        ) }}
-        {% for error in form.artist.errors %}
-        <span style="color: red;">[{{ error }}]</span>
+        {{ form.song.label }} {{ form.song(size=32,class=" p-3 m-2 bg-gray-50
+        border border-gray-300 text-gray-900 text-sm rounded-lg block w-full  focus:outline-none focus:ring focus:dark-accent", )
+        }} {% for error in form.song.errors %}
+        <span style="color: red">[{{ error }}]</span>
+        {% endfor %} {{ form.artist.label }} {{ form.artist(size=32,class=" p-3
+        m-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+        block w-full p-2.5 focus:outline-none focus:ring focus:dark-accent", ) }} {% for error in form.artist.errors %}
+        <span style="color: red">[{{ error }}]</span>
         {% endfor %}
-        <div>
-          <button type="submit"
-            class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{{
-            form.submit(class="cursor-pointer") }}</button>
+        <div class="mt-2">
+          <button
+            type="submit"
+            class="text-white bg-main-colour hover:bg-light-accent font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          >
+            {{ form.submit(class="cursor-pointer") }}
+          </button>
         </div>
       </div>
     </form>
-
   </div>
-
 </div>
 {% if spotify_data %}
 <!-- Searched Track -->
-<div class="flex gap-1 justify-center  items-center m-5">
+<div class="flex gap-1 justify-center items-center m-5">
   <div class="w-1/3"></div>
   <div
-    class="w-1/3 flex flex-col max-w-sm border rounded-corners bg-white border-gray-200 shadow rounded-lg  dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 ">
+    class="w-1/3 flex flex-col max-w-sm border rounded-corners bg-main-colour border-gray-200 shadow rounded-lg"
+  >
     {% if spotify_data.song_name %}
-    <h1 class="text-center min-h-12 text-balance line-clamp-2"> {{spotify_data.song_name }} by {{spotify_data.artist_name}}</h1>
+    <h1 class="text-center min-h-12 text-balance line-clamp-2">
+      {{spotify_data.song_name }} by {{spotify_data.artist_name}}
+    </h1>
 
-    <img src="{{spotify_data.album_image}}" class="">
+    <img src="{{spotify_data.album_image}}" class="" />
     {% if spotify_data.preview_url %}
     <div class="player-wrapper">
-
-      <audio id="player" class="m-3 p-5  js-player"
-        style="--plyr-color-main: #1ac266; --plyr-audio-controls-background:" controls>
-        <source src="{{spotify_data.preview_url}}" type="audio/mpeg">
+      <audio
+        id="player"
+        class="m-3 p-5 js-player"
+        style="--plyr-color-main: #586292; --plyr-audio-controls-background: "
+        controls
+      >
+        <source src="{{spotify_data.preview_url}}" type="audio/mpeg" />
       </audio>
     </div>
     {% else %}
-    <h1 class=" text-center min-h-12 "> Preview Unavailable </h1>
+
+    <h1 class="text-center min-h-10 pt-2">Preview Unavailable</h1>
     {% endif %}
     <div class="flex">
+      <a
+        href="{{ spotify_data.spotify_url }}"
+        target="_blank"
+        class="p-2 flex items-center justify-center rounded-b-lg text-light-shade bg-main-colour hover:bg-spotify-accent grow"
+      >
+        <img
+          class="max-h-6 pr-2"
+          src="..\static\spotify-brand\icons\Spotify_Icon_RGB_White.png"
+        />
 
-      <a href="{{ spotify_data.spotify_url }}" target="_blank" class="rounded-b-lg text-white bg-green-700  hover:bg-green-800 grow text-center">Open in Spotify
+        <span>PLAY ON SPOTIFY</span>
       </a>
     </div>
     {% else %}
-    <h1 class="text-center gap-1"> No Song Selected</h1>
+    <h1 class="text-center gap-1">No Song Selected</h1>
     {% endif %}
   </div>
 
   <div class="w-1/3"></div>
 </div>
 
-
 <!-- Recommendation Tracks -->
 
-<div class="flex ">
+<div class="flex">
   <div class="w-1/3"></div>
   <div class="grid grid-rows-3 grid-flow-col gap-4">
     {% for item in spotify_data.recommendation_tracks %}
     <div
-      class=" flex flex-col max-w-sm border bg-white border-gray-200 rounded-lg  rounded-corners shadow  dark:bg-gray-800 dark:border-gray-700   ">
-      <a href="{{ url_for('core.song_search_form',id=item.id) }}" >
-        <div class = " hover:bg-gray-100 dark:hover:bg-gray-700  rounded-lg">
-          <h1 class=" text-center min-h-12 text-balance line-clamp-2"> {{item.name }} by {{item.artists[0].name}} </h1>
-          <img class=" rounded-t-lg w-100% h-100% object-cover min-h-72  min-w-72" src="{{item.album.images[0].url}}"
-            class="">
+      class="flex flex-col max-w-sm border border-gray-200 rounded-lg rounded-corners shadow bg-main-colour"
+    >
+      <a href="{{ url_for('core.song_search_form',id=item.id) }}">
+        <div class="hover:bg-light-accent rounded-lg">
+          <h1 class="text-center min-h-12 text-balance line-clamp-2">
+            {{item.name }} by {{item.artists[0].name}}
+          </h1>
+          <img
+            class="w-100% h-100% object-cover min-h-72 min-w-72"
+            src="{{item.album.images[0].url}}"
+            class=""
+          />
         </div>
       </a>
       {% if item.preview_url %}
-      <div class="player-wrapper">
-        <audio id="player" class="m-3 p-5 js-player " style="--plyr-color-main: #1ac266;" controls>
-          <source src="{{item.preview_url}}" type="audio/mpeg">
+      <div class="player-wrapper min-h-10 p-1 bg-white">
+        <audio
+          id="player"
+          class="js-player"
+          style="--plyr-color-main: #586292; --plyr-control-spacing: 4px"
+          controls
+        >
+          <source src="{{item.preview_url}}" type="audio/mpeg" />
         </audio>
       </div>
       {% else %}
-      <h1 class=" text-center min-h-12 "> Preview Unavailable </h1>
+      <div class="">
+        <h1 class="text-center min-h-10 pt-2">Preview Unavailable</h1>
+      </div>
       {% endif %}
-      <div class="flex  flex-1 ">
-    
-        <a href="{{ item.spotify_url }}" target="_blank" class="rounded-b-lg text-white bg-green-700  hover:bg-green-800 grow text-center">Open in Spotify
+      <div class="flex flex-1">
+        <a
+          href="{{ item.external_urls.spotify }}"
+          target="_blank"
+          class="p-2 flex items-center justify-center rounded-b-lg text-light-shade bg-main-colour hover:bg-spotify-accent grow"
+        >
+          <img
+            class="max-h-6 pr-2"
+            src="..\static\spotify-brand\icons\Spotify_Icon_RGB_White.png"
+          />
+
+          <span>PLAY ON SPOTIFY</span>
         </a>
       </div>
-
     </div>
     {% endfor %}
   </div>
@@ -108,15 +137,16 @@
 </div>
 {% endif %}
 
-
 <script>
-  const players = Array.from(document.querySelectorAll('.js-player')).map((p) => new Plyr(p));
+  const players = Array.from(document.querySelectorAll(".js-player")).map(
+    (p) => new Plyr(p)
+  );
 </script>
 <style>
-  .rounded-corners{
+  .rounded-corners {
     border-bottom-right-radius: 0.55rem;
     border-bottom-left-radius: 0.55rem;
-} 
+  }
   .plyr__volume {
     max-width: min-content;
   }

@@ -47,7 +47,7 @@
       <audio
         id="player"
         class="m-3 p-5 js-player"
-        style="--plyr-color-main: #1ac266; --plyr-audio-controls-background: "
+        style="--plyr-color-main: #586292; --plyr-audio-controls-background: "
         controls
       >
         <source src="{{spotify_data.preview_url}}" type="audio/mpeg" />
@@ -61,7 +61,7 @@
       <a
         href="{{ spotify_data.spotify_url }}"
         target="_blank"
-        class="p-2 flex items-center justify-center rounded-b-lg text-light-shade bg-dark-accent hover:bg-light-accent grow"
+        class="p-2 flex items-center justify-center rounded-b-lg text-light-shade bg-main-colour hover:bg-spotify-accent grow"
       >
         <img
           class="max-h-6 pr-2"
@@ -120,7 +120,7 @@
         <a
           href="{{ item.external_urls.spotify }}"
           target="_blank"
-          class="p-2 flex items-center justify-center rounded-b-lg text-light-shade bg-dark-accent hover:bg-light-accent grow"
+          class="p-2 flex items-center justify-center rounded-b-lg text-light-shade bg-main-colour hover:bg-spotify-accent grow"
         >
           <img
             class="max-h-6 pr-2"

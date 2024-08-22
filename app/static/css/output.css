@@ -692,11 +692,6 @@ video {
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
 
-.bg-dark-accent {
-  --tw-bg-opacity: 1;
-  background-color: rgb(131 115 126 / var(--tw-bg-opacity));
-}
-
 .bg-dark-shades {
   --tw-bg-opacity: 1;
   background-color: rgb(41 61 79 / var(--tw-bg-opacity));
@@ -709,7 +704,7 @@ video {
 
 .bg-main-colour {
   --tw-bg-opacity: 1;
-  background-color: rgb(143 154 166 / var(--tw-bg-opacity));
+  background-color: rgb(124 122 126 / var(--tw-bg-opacity));
 }
 
 .bg-white {
@@ -796,7 +791,12 @@ video {
 
 .hover\:bg-light-accent:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(179 159 108 / var(--tw-bg-opacity));
+  background-color: rgb(153 157 170 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-spotify-accent:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(55 76 74 / var(--tw-bg-opacity));
 }
 
 .focus\:outline-none:focus {

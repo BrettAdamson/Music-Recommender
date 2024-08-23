@@ -56,6 +56,7 @@ def test_auth():
     return response.json()
 
 
+@bp.route("/search/<artist>/<song>")
 @valid_client_credentials
 def search_song(artist, song):
     bearerToken = "Bearer " + session["client_code"]["access_token"]
@@ -66,6 +67,46 @@ def search_song(artist, song):
     response = requests.get(URL, headers={"Authorization": bearerToken})
     response.raise_for_status()
     return response.json()["tracks"]["items"][0]
+
+
+@bp.route("/autocomplete/artist/<artist>")
+@valid_client_credentials
+def autocompleteArtist(artist):
+    bearerToken = "Bearer " + session["client_code"]["access_token"]
+    URL = (
+        "https://api.spotify.com/v1/search?q="
+        + "artist="
+        + artist
+        + "&type=artist&limit=10"
+    )
+    response = requests.get(URL, headers={"Authorization": bearerToken})
+    response.raise_for_status()
+    arr = response.json()["artists"]["items"]
+    names = []
+    for each in arr:
+        names.append(each["name"])
+
+    names = list(dict.fromkeys(names))
+    return names
+
+
+@bp.route("/autocomplete/song/<song>")
+@valid_client_credentials
+def autocompleteSong(song):
+    bearerToken = "Bearer " + session["client_code"]["access_token"]
+    URL = (
+        "https://api.spotify.com/v1/search?q="
+        "track=" + song + "*" + "&type=track&limit=10"
+    )
+    response = requests.get(URL, headers={"Authorization": bearerToken})
+    response.raise_for_status()
+    arr = response.json()["tracks"]["items"]
+    names = []
+    for each in arr:
+        names.append(each["name"])
+
+    names = list(dict.fromkeys(names))
+    return names
 
 
 @valid_client_credentials

@@ -24,8 +24,8 @@
           >
             {{ form.submit(class="cursor-pointer" ) }}
           </button>
-          <p id="songDemo"></p>
-          <p id="artistDemo"></p>
+          <span id="songDemo"></span>
+          <span id="artistDemo"></span>
         </div>
       </div>
     </form>
@@ -143,16 +143,40 @@
 
   function songAutocomplete(){
     let songSearchData = document.getElementById("songInput").value;
-    document.getElementById("songDemo").innerHTML = "Song: " + songSearchData;
-
+    if(songSearchData.length >= 1){
+    const url = 'http://127.0.0.1:5000/autocomplete/song/' + songSearchData;
+    fetch(url).then(blob => blob.json()).then(data =>displaySongs(data))
+  } else{
+    data = []
+    displaySongs(data)
   }
+  }
+  function displaySongs(data){
+    let list = ''
+    for (i=0; i<data.length; i++) {
+      list += '<li>' + data[i] + '</li>';
+    }
+    document.getElementById("songDemo").innerHTML = list
+  }
+
   function artistAutocomplete(){
     let artistSearchData = document.getElementById("artistInput").value;
-    document.getElementById("artistDemo").innerHTML = "Artist: " + artistSearchData;
-
+    if(artistSearchData.length >= 1){
+    const url = 'http://127.0.0.1:5000/autocomplete/artist/' + artistSearchData;
+    fetch(url).then(blob => blob.json()).then(data =>displayArtists(data))
+    }else{
+      data = []
+      displayArtists(data)
+    }
   }
 
-
+  function displayArtists(data){
+    let list = ''
+    for (i=0; i<data.length; i++) {
+      list += '<li>' + data[i] + '</li>';
+    }
+    document.getElementById("artistDemo").innerHTML = list
+  }
   const players = Array.from(document.querySelectorAll(".js-player")).map(
     (p) => new Plyr(p)
   );

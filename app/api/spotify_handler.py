@@ -77,6 +77,7 @@ def autocompleteArtist(artist):
         "https://api.spotify.com/v1/search?q="
         + "artist="
         + artist
+        + "*"
         + "&type=artist&limit=10"
     )
     response = requests.get(URL, headers={"Authorization": bearerToken})

@@ -8,14 +8,33 @@
     >
       {{ form.hidden_tag() }}
       <div class="flex flex-col justify-center items-center">
-        {{ form.song.label }} {{ form.song(size=32, id="songInput", class=" p-3 m-2 bg-gray-50
-        border border-gray-300 text-gray-900 text-sm rounded-lg block w-full  focus:outline-none focus:ring focus:dark-accent", autocomplete="off", oninput="songAutocomplete()" )
-        }} {% for error in form.song.errors %}
-        <span style="color: red">[{{ error }}]</span>
-        {% endfor %} {{ form.artist.label }} {{ form.artist(size=32,id="artistInput",class=" p-3
+        {{ form.song.label }} {{ form.song(size=32, id="songInput", class=" p-3
         m-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-        block w-full p-2.5 focus:outline-none focus:ring focus:dark-accent",autocomplete="off",oninput="artistAutocomplete()" ) }} {% for error in form.artist.errors %}
+        block w-full focus:outline-none focus:ring focus:dark-accent",
+        autocomplete="off", oninput="songAutocomplete()",list="songDatalist" ) }}
+        <datalist id="songDatalist">
+
+        </datalist>
+        <div class="suggestions">
+
+        <span id="songDemo"></span>
+        </div>
+        {% for error in form.song.errors %}
         <span style="color: red">[{{ error }}]</span>
+
+        {% endfor %} {{ form.artist.label }} {{
+        form.artist(size=32,id="artistInput",class=" p-3 m-2 bg-gray-50 border
+        border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5
+        focus:outline-none focus:ring
+        focus:dark-accent",autocomplete="off",oninput="artistAutocomplete()" )
+        }} 
+        <div class="suggestions">
+        <span id="artistDemo"></span>
+      </div>
+        {% for error in form.artist.errors %}
+
+        <span style="color: red">[{{ error }}]</span>
+
         {% endfor %}
         <div class="mt-2">
           <button
@@ -24,8 +43,6 @@
           >
             {{ form.submit(class="cursor-pointer" ) }}
           </button>
-          <span id="songDemo"></span>
-          <span id="artistDemo"></span>
         </div>
       </div>
     </form>
@@ -140,42 +157,50 @@
 {% endif %}
 
 <script>
-
-  function songAutocomplete(){
+  function songAutocomplete() {
     let songSearchData = document.getElementById("songInput").value;
-    if(songSearchData.length >= 1){
-    const url = 'http://127.0.0.1:5000/autocomplete/song/' + songSearchData;
-    fetch(url).then(blob => blob.json()).then(data =>displaySongs(data))
-  } else{
-    data = []
-    displaySongs(data)
-  }
-  }
-  function displaySongs(data){
-    let list = ''
-    for (i=0; i<data.length; i++) {
-      list += '<li>' + data[i] + '</li>';
+    if (songSearchData.length >= 1) {
+      const url = "http://127.0.0.1:5000/autocomplete/song/" + songSearchData;
+      fetch(url)
+        .then((blob) => blob.json())
+        .then((data) => displaySongs(data));
+    } else {
+      data = [];
+      displaySongs(data);
     }
-    document.getElementById("songDemo").innerHTML = list
+  }
+  function displaySongs(data) {
+    let list = "";
+
+    for (i = 0; i < data.length; i++) {
+      let song =  '<option value=' + data[i] +'>'
+      list += "<li>" + data[i] + "</li>";
+      document.getElementById("songDatalist").innerHTML += song;
+    }
+    document.getElementById("songDemo").innerHTML = list;
+
   }
 
-  function artistAutocomplete(){
+  function artistAutocomplete() {
     let artistSearchData = document.getElementById("artistInput").value;
-    if(artistSearchData.length >= 1){
-    const url = 'http://127.0.0.1:5000/autocomplete/artist/' + artistSearchData;
-    fetch(url).then(blob => blob.json()).then(data =>displayArtists(data))
-    }else{
-      data = []
-      displayArtists(data)
+    if (artistSearchData.length >= 1) {
+      const url =
+        "http://127.0.0.1:5000/autocomplete/artist/" + artistSearchData;
+      fetch(url)
+        .then((blob) => blob.json())
+        .then((data) => displayArtists(data));
+    } else {
+      data = [];
+      displayArtists(data);
     }
   }
 
-  function displayArtists(data){
-    let list = ''
-    for (i=0; i<data.length; i++) {
-      list += '<li>' + data[i] + '</li>';
+  function displayArtists(data) {
+    let list = "";
+    for (i = 0; i < data.length; i++) {
+      list += "<li>" + data[i] + "</li>";
     }
-    document.getElementById("artistDemo").innerHTML = list
+    document.getElementById("artistDemo").innerHTML = list;
   }
   const players = Array.from(document.querySelectorAll(".js-player")).map(
     (p) => new Plyr(p)

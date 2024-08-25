@@ -7,24 +7,37 @@
       novalidate
     >
       {{ form.hidden_tag() }}
-      <div class="flex flex-col justify-center items-center">
-        {{ form.song.label }} {{ form.song(size=32,class=" p-3 m-2 bg-gray-50
-        border border-gray-300 text-gray-900 text-sm rounded-lg block w-full  focus:outline-none focus:ring focus:dark-accent", )
-        }} {% for error in form.song.errors %}
-        <span style="color: red">[{{ error }}]</span>
-        {% endfor %} {{ form.artist.label }} {{ form.artist(size=32,class=" p-3
-        m-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-        block w-full p-2.5 focus:outline-none focus:ring focus:dark-accent", ) }} {% for error in form.artist.errors %}
-        <span style="color: red">[{{ error }}]</span>
-        {% endfor %}
-        <div class="mt-2">
-          <button
-            type="submit"
-            class="text-white bg-main-colour hover:bg-light-accent font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-          >
-            {{ form.submit(class="cursor-pointer") }}
-          </button>
+      <div class="flex">
+        <div class="flex flex-col justify-center items-center m-2">
+          {{ form.song.label }} {{ form.song(size=32, id="songInput", class="
+          p-3 text-center m-2 bg-gray-50 border border-gray-300 text-gray-900
+          text-sm rounded-lg block w-full focus:outline-none focus:ring
+          focus:dark-accent", autocomplete="on", ) }} {% for error in
+          form.song.errors %}
+          <span style="color: red">[{{ error }}]</span>
+
+          {% endfor %}
         </div>
+        <div class="flex flex-col justify-center items-center m-2">
+          {{ form.artist.label }} {{
+          form.artist(size=32,id="artistInput",class=" text-center p-3 m-2
+          bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+          block w-full p-2.5 focus:outline-none focus:ring
+          focus:dark-accent",autocomplete="on", ) }}
+        </div>
+      </div>
+      {% for error in form.artist.errors %}
+
+      <span style="color: red">[{{ error }}]</span>
+
+      {% endfor %}
+      <div class="flex flex-col justify-center items-center m-2">
+        <button
+          type="submit"
+          class="text-white bg-main-colour hover:bg-light-accent font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+        >
+          {{ form.submit(class="cursor-pointer" ) }}
+        </button>
       </div>
     </form>
   </div>

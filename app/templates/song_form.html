@@ -1,6 +1,8 @@
 {% extends "base.html" %} {% block content %}
 <div class="flex flex-col justify-center items-center gap-1">
   <div class="flex flex-col justify-center items-center gap-1">
+    <h1 class =" m-2 text-2xl font-extrabold leading-none tracking-tight">Music Recommender</h1>
+
     <form
       action="{{ url_for('core.song_search_form') }}"
       method="post"

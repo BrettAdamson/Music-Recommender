@@ -7,13 +7,6 @@ Built with Python, Flask and JavaScript. Styled with TailwindCSS.
 
 ## Getting Started
 
-### Hosted Service
-
-Currently the application is hosted on Digital Ocean at this URL: https://music-recommender-cj3kw.ondigitalocean.app/.
-
-It is hosted using Digital Ocean's App Platform PaaS, with gunicorn as the WSGI HTTP server.
-
-
 
 ### Local Install
 
